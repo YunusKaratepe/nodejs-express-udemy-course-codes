@@ -4,10 +4,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
-    
-    <title>Help</title>
+    <link rel="icon" href="/img/icon.ico">
+    <title> {{title}} </title>
 </head>
 <body>
-    <h1>From a static file - Help Page</h1>
+
+    <div class="main-content">
+        {{>header}}
+        
+        <p>Hole page content here!</p>
+
+    </div>
+
+    {{>footer}}
 </body>
+<script src="/js/app.js"></script>
 </html>

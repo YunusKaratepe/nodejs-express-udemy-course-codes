@@ -4,10 +4,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/icon.ico">
     <title> {{title}} </title>
 </head>
 <body>
-    <h1> {{title}} </h1>
-    <img src="/img/sylvanas.jpg" alt="Image couldn't load.">
+
+    <div class="main-content">
+        {{>header}}
+    
+        <img src="/img/sylvanas.jpg" alt="Image couldn't load." id="sylvanas">
+        <br>
+        <span> Image: {{image_info}} </span>
+    </div>
+    
+
+    {{>footer}}
 </body>
 </html>
