@@ -1,6 +1,31 @@
 const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
+const geocode = require('./utils/geocode')
+const weatherstack = require('./utils/weatherstack')
+
+function weatherApp (address, callback) {
+    geocode(address, (geocode_error, { latitude, longitude, location }={}) => {
+        if (geocode_error) callback ({ error: geocode_error })
+        else {
+            // weather stack gets latitude-longitude
+            weatherstack(latitude, longitude, 
+                (weatherstack_error, { weather_descriptions, temperature, feelslike, humidity }={}) => {
+                if (weatherstack_error)
+                    callback ({ error: weatherstack_error });
+                else {
+                    callback({
+                        address: location,
+                        weather_description: weather_descriptions[0],
+                        temperature: temperature,
+                        feelslike: feelslike,
+                        humidity: humidity
+                    })
+                }
+            })
+        }
+    })
+}
 
 
 // define paths for Express config
@@ -43,9 +68,29 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
+    
+    if (!req.query.address) {
+        return res.send({
+            error: "You must provide a address term."
+        })
+    }
+
+    weatherApp(req.query.address, (data) => {
+        return res.send(data)
+    })
+})
+
+app.get('/products', (req, res) => {
+
+    if (!req.query.search) {
+        return res.send({
+            error: "You must provide a search term."
+        })
+    }
+
+    console.log(req.query.search);
     res.send({
-        location: "Bursa, Turkey",
-        forecast: "Snowy"
+        products: []
     })
 })
 
