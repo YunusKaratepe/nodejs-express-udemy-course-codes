@@ -15,7 +15,7 @@ function weatherApp (address, callback) {
                     callback ({ error: weatherstack_error });
                 else {
                     callback({
-                        address: location,
+                        location: location,
                         weather_description: weather_descriptions[0],
                         temperature: temperature,
                         feelslike: feelslike,

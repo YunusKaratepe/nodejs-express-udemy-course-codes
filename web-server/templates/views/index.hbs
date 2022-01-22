@@ -12,11 +12,25 @@
     <div class="main-content">
         {{>header}}
         
-        <p>Hole page content here!</p>
+        <p>Give us an address, we tell you the weather.</p>
+
+        <form>
+            <input placeholder="Location" type="text">
+            <button type="submit">Search</button>
+        </form>
+
+        <p id="location"></p>
+        <p id="weather-description"></p>
+        <p id="temperature"></p>
+        <p id="feelslike"></p>
+        <p id="humidity"></p>
+
 
     </div>
 
     {{>footer}}
+
+    <script src="/js/app.js"></script>
 </body>
-<script src="/js/app.js"></script>
+
 </html>
