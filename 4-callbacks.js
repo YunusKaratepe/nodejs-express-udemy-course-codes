@@ -26,17 +26,43 @@ geocode('Philadelphia', (data) => {
 })
 */
 
-const add = (num1, num2, sum) => {
+// const add = (num1, num2, sum) => {
+//     setTimeout(() => {
+//         sum(num1 + num2)
+//     }, 1000)
+// }
+
+
+
+// add(1, 4, (res) => {
+//     console.log(res); // should print 5
+// })
+
+
+// promises lecture ->
+// this is callback --
+
+const doWorkCallback = (callback) => {
     setTimeout(() => {
-        sum(num1 + num2)
-    }, 1000)
+        // callback('This is error message', undefined)
+        callback(undefined, {
+            prod_id: "95",
+            prod_name: "Keyboard"
+        })
+    }, 2000)
 }
 
+doWorkCallback((err, data) => {
+    if (err) return console.log(err);
 
-
-add(1, 4, (res) => {
-    console.log(res); // should print 5
+    console.log(data);
 })
+
+
+
+
+
+
 
 
 
