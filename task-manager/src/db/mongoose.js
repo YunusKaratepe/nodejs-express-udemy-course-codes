@@ -36,9 +36,10 @@ const User = mongoose.model('User', {
         type: String,
         required: true,
         trim: true,
+        minlength: 7,
         validate(value) {
-            if (value.includes('password')) {
-                throw new Error('Invalid password. Password must NOT contain the work "password".')
+            if (value.toLowerCase().includes('password')) {
+                throw new Error('Invalid password. Password must NOT contain the word "password".')
             }
             
         }
@@ -47,34 +48,37 @@ const User = mongoose.model('User', {
 
 const me = new User({
     name: ' Kerem     ',
-    email: 'KEREMml@gmail.com    '
+    email: 'KEREMml@gmail.com    ',
+    password: "keremhaha123"
 })
 
-me.save().then(() => {
-    console.log(me);
-}).catch((err) => {
-    if (err) console.log(err);    
-})
+// me.save().then(() => {
+//     console.log(me);
+// }).catch((err) => {
+//     if (err) console.log(err);    
+// })
 
 const Task = mongoose.model('Task', {
     description: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 })
 
 const task = new Task({
-    description: "Empty the trash",
-    completed: false
+    description: " Eat Lunch   "
 })
 
-// task.save().then(() => {
-//     console.log(task);
-// }).catch((err) => {
-//     if (err) console.log(err);
-// }) 
+task.save().then(() => {
+    console.log(task);
+}).catch((err) => {
+    if (err) console.log(err);
+}) 
 
 
 
