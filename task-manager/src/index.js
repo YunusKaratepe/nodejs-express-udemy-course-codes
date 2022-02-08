@@ -67,6 +67,18 @@ app.patch('/users/:id', async (req, res) => {
     }
 })
 
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id)
+
+        if (!user) return res.status(404).send()
+
+        res.send(user)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
 app.post('/tasks', async (req, res) => {
     const task = new Task(req.body)
 
@@ -103,15 +115,27 @@ app.get('/tasks/:id', async (req, res) => {
 app.patch('/tasks/:id', async (req, res) => {
     const updatesAvailable = ["description", "completed"]
     const updates = Object.keys(req.body)
-    const isValidUpdates = updates.every((update) => updatesAvailable.includes(update))
+    const isValidUpdate = updates.every((update) => updatesAvailable.includes(update))
     
-    if (!isValidUpdates) res.status(400).send({ Error: "Updates are not valid." })
+    if (!isValidUpdate) res.status(400).send({ Error: "Updates are not valid." })
 
     try {
         const task = await Task.findByIdAndUpdate(req.params.id, req.body
             , { new: true, runValidators: true })
         
         if (!task) return res.status(404).send()
+        res.send(task)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+app.delete('/tasks/:id', (req, res) => {
+    try {
+        const task = Task.findByIdAndDelete(req.params.id)
+        
+        if(!task) return res.status(404).send()
+
         res.send(task)
     } catch (err) {
         res.status(500).send()
