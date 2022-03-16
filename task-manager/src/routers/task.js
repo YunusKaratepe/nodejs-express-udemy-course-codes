@@ -20,10 +20,32 @@ router.post('/tasks', auth, async (req, res) => {
     }
 })
 
+// get /tasks?completed=false
+// get /tasks?limit=10&skip=20
+// get /tasks?description
+// get /createdAt:desc
+//1: asc, -1: desc
 router.get('/tasks', auth, async (req, res) => {
-
+    const filter = { owner: req.user._id }
+    const sort ={}
     try {
-        const tasks = await Task.find({ owner: req.user._id })
+        if (req.query.completed) 
+            filter.completed = (req.query.completed === 'true')
+        
+        if (req.query.description) {
+            filter.description = {$regex: '.*' + req.query.description + '.*'}
+        }
+
+        if (req.query.sortBy) {
+            const parts = req.query.sortBy.split(':')
+            sort[parts[0]] = parts[1] === "asc" ? 1 : -1
+        }
+        
+        const tasks = await Task.find(filter).setOptions({
+            limit: parseInt(req.query.limit),
+            skip: parseInt(req.query.skip),
+            sort
+        })
         res.send(tasks)
     } catch (err) {
         res.status(500).send(err)
