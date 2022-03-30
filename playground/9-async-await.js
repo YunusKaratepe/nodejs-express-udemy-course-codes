@@ -14,7 +14,7 @@ const add = (a, b) => {
     return new Promise((res, rej) => {
         setTimeout(() => {
 
-            if (a < 0 | b < 0)
+            if (a < 0 || b < 0)
                 rej("Big error!!!")
 
             res(a + b)

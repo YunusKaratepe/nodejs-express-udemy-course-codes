@@ -7,7 +7,7 @@ const sharp = require('sharp');
 
 const upload = multer({
     limits: {
-        fileSize: 1_000_000
+        fileSize: 1000000
     },
     fileFilter(req, file, cb) {
         // cb(new Error('File must be a PDF'))

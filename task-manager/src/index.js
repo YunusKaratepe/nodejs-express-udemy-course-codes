@@ -1,22 +1,6 @@
-const express = require('express');
-require('./db/mongoose')
-
-// routers
-const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
-
-const app = express();
-const port = process.env.PORT;
-
-app.use(express.json())
-
-// app.use((req, res, next) => {
-//     res.status(503).send("Server is now under maintenance.")
-// })
-
-app.use(userRouter)
-app.use(taskRouter)
+const app = require('./app')
+const port = process.env.PORT
 
 app.listen(port, () => {
-    console.log('Server is up on ' + port);
+    console.log('Server is up on port ' + port);
 })
