@@ -2,3 +2,4 @@ node_modules/
 task-manager/avatars/
 task-manager/images/
 task-manager/config/
+.vscode/
